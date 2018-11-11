@@ -22,3 +22,19 @@ docker run \
   -e POSTGRES_PASSWORD=mysecretpassword \
   postgres
 ```
+## Start Gremlin Client
+
+```bash
+docker run \
+  --rm \
+  -it tinkerpop/gremline-console \
+  bash
+```
+
+## Start Gremlin Server
+
+```bash
+docker run \
+  -p 8182:8182 \
+  tinkerpop/gremlin-server
+```
