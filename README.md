@@ -14,7 +14,7 @@ docker run \
 ## Start postgres as a docker container
 
 ```bash
-docker run \ 
+docker run \
   --rm \
   --name postgres \
   -p 5432:5432 \
