@@ -14,7 +14,7 @@ module.exports = {
         main: "./src/index.js"
     },
     output: {
-        path: path.resolve(__dirname, "dist"),
+        path: path.resolve(__dirname, "dist/build/"),
         filename: "bundle.js"
     },
     module: {
@@ -44,9 +44,9 @@ module.exports = {
          * We want to visualize how big our dependencies are
          */
         new Visualizer({
-            filename: "./statistics.html"
+            filename: "statistics.html"
         }),
-        new CleanWebpackPlugin('dist', {}),
+        new CleanWebpackPlugin('dist/build', {}),
         new WebpackBuildNotifierPlugin({
             title: "iBuy Build"
         }),

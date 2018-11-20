@@ -1,4 +1,4 @@
 node_modules
 dist/*.js
-dist/stats.json'
-dist/statistics.html
+dist/build
+dist/vendor

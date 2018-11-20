@@ -10,7 +10,7 @@ module.exports = {
     },
     output: {
 //        path: join('build'),
-        path: join('dist'),
+        path: join('dist/vendor'),
         filename: '[name].js',
         library: '[name]'
     },
