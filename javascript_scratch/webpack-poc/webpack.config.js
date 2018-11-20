@@ -7,6 +7,7 @@ const WebpackBuildNotifierPlugin = require("webpack-build-notifier")
 const DashboardPlugin = require("webpack-dashboard/plugin")
 const Dashboard = require("webpack-dashboard")
 const dashboard = new Dashboard()
+var HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -62,7 +63,8 @@ module.exports = {
             manifest: require(path.join(
                 __dirname, 
                 "./vendor/vendor-manifest.json"))
-        })
+        }),
+        new HardSourceWebpackPlugin()
     ],
     devServer: {
         contentBase: path.join(__dirname, 'dist'),
