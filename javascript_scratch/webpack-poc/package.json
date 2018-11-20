@@ -1,0 +1,38 @@
+{
+  "name": "babel-poc",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "babel-node index.js",
+    "build": "babel -w --verbose index.js -o dist/bundle.js",
+    "help": "babel"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.1.5",
+    "@babel/core": "^7.1.6",
+    "@babel/node": "^7.0.0",
+    "@babel/preset-env": "^7.1.6",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.4",
+    "clean-webpack-plugin": "^1.0.0",
+    "path": "^0.12.7",
+    "webpack": "^4.26.0",
+    "webpack-build-notifier": "^0.1.30",
+    "webpack-cli": "^3.1.2",
+    "webpack-dashboard": "^2.0.0",
+    "webpack-dev-server": "^3.1.10",
+    "webpack-stats-plugin": "^0.2.1",
+    "webpack-visualizer-plugin": "^0.1.11"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3"
+  },
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ]
+}
