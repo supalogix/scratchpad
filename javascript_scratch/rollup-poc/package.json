@@ -1,0 +1,29 @@
+{
+  "name": "babel7-poc",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build:dev": "babel --verbose -w -o dist/bundle.js index.js"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.1.5",
+    "@babel/core": "^7.1.6",
+    "@babel/node": "^7.0.0",
+    "@babel/preset-env": "^7.1.6",
+    "rollup": "^0.67.3",
+    "rollup-plugin-auto-external": "^2.0.0",
+    "rollup-plugin-babel": "^4.0.3",
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-node-resolve": "^3.4.0",
+    "rollup-plugin-run": "^1.1.0",
+    "webpack": "^4.26.0",
+    "webpack-cli": "^3.1.2"
+  },
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
