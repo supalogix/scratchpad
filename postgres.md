@@ -28,7 +28,8 @@ values
 (
 	'02628dd0-78f8-4036-b051-820f4ff99e89',
 	'jnaciona'
-);
+)
+on conflict do nothing;
 
 insert into dbo.token
 (
@@ -48,6 +49,7 @@ values
 	'83dd60fa-0964-4356-b523-e440adb4c961',
 	'hmac3'
 )
+on conflict do nothing;
 
 insert into dbo.account_belongsto_token_has
 (
@@ -67,6 +69,7 @@ values
 	'02628dd0-78f8-4036-b051-820f4ff99e89',
 	'83dd60fa-0964-4356-b523-e440adb4c961'
 )
+on conflict do nothing;
 
 with accounts as (
 	select * 
@@ -94,5 +97,4 @@ payload as (
 		username
 	from dbo.account as account
 )
-select row_to_json(payload) from payload
-```
+select row_to_json(payload) from payload```
