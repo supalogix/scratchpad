@@ -71,10 +71,14 @@ values
 )
 on conflict do nothing;
 
+create or replace function get_accounts(id uuid)
+returns json as
+$$
 with accounts as (
-	select * 
+	select 
+		identity
 	from dbo.account
-	where identity = '02628dd0-78f8-4036-b051-820f4ff99e89'
+	where identity = id
 ),
 related_accounts as (
 	select *
@@ -87,14 +91,20 @@ related_accounts as (
 ),
 tokens as (
 	select 
-		array_to_json(array_agg(row_to_json(related_accounts))) as tokens
+		array_to_json(array_agg(to_jsonb(related_accounts))) as tokens
 	from related_accounts
 ),
-payload as (
+account_payload as (
 	select
 		identity,
 		( select tokens from tokens ),
 		username
 	from dbo.account as account
 )
-select row_to_json(payload) from payload```
+select array_to_json(array_agg(to_jsonb(account_payload))) 
+from account_payload
+$$ language sql;
+
+select * 
+from get_accounts('02628dd0-78f8-4036-b051-820f4ff99e89')
+```
