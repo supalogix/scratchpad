@@ -19,6 +19,30 @@ create table if not exists dbo.account_belongsTo_token_has
 	token_identity uuid primary key
 );
 
+create or replace function dbo.create_account
+(
+	event json
+)
+returns void as
+$$
+	insert into dbo.account
+	(
+		identity,
+		username
+	)
+	values 
+	(
+		(event->>'identity')::text::uuid,
+		(event->>'username')::text
+	)
+	on conflict do nothing;	
+$$ language sql;
+
+select dbo.create_account($${
+	"identity": "02628dd0-78f8-4036-b051-820f4ff99e89",
+	"username": "jnaciona"
+}$$);
+/*
 insert into dbo.account
 (
 	identity,
@@ -30,6 +54,7 @@ values
 	'jnaciona'
 )
 on conflict do nothing;
+*/
 
 insert into dbo.token
 (
