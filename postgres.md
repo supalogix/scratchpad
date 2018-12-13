@@ -1,4 +1,4 @@
-```bash
+```sql
 create schema if not exists dbo;
 
 create table if not exists dbo.account
@@ -132,4 +132,149 @@ $$ language sql;
 
 select * 
 from get_accounts('02628dd0-78f8-4036-b051-820f4ff99e89')
+```
+
+```sql
+create or replace function dbo.handle_create_product
+(
+	event json
+)
+returns void as
+$$
+	insert into dbo.lpr_product
+	(
+		pr_uid_product_uuid,
+		pr_nam_product_name,
+		pr_nam_changedAt,
+		pr_dsc_product_description,
+		pr_dsc_changedAt,
+		pr_rep_product_retailPrice,
+		pr_rep_changedAt
+	)
+	select
+		(event->'data'->>'identity')::text::uuid,
+		
+		(event->'data'->>'name')::text,
+		(event->'creationDate')::text::timestamp,
+		
+		(event->'data'->>'description')::text,
+		(event->'creationDate')::text::timestamp,
+		
+		(event->'data'->>'retailPrice')::int,
+		(event->'creationDate')::text::timestamp
+	where not exists (
+		select 1
+		from dbo.lpr_product
+		where pr_uid_product_uuid = (event->'data'->>'identity')::text
+	)
+	on conflict do nothing;
+$$ language sql;
+
+create or replace function dbo.handle_change_product
+(
+	event json
+)
+returns void as
+$$
+	insert into dbo.lpr_product
+	(
+		PR_Id,
+		PR_NAM_Product_Name,
+		PR_NAM_changedAt,
+		PR_DSC_Product_Description,
+		PR_DSC_ChangedAt,
+		PR_REP_Product_RetailPrice,
+		PR_REP_ChangedAt
+	)
+	select 
+		pr_id,
+		(event->'data'->>'name')::text,
+		(event->'creationDate')::text::timestamp,
+		
+		(event->'data'->>'description')::text,
+		(event->'creationDate')::text::timestamp,
+		
+		(event->'data'->>'retailPrice')::int,
+		(event->'creationDate')::text::timestamp
+	from dbo.lpr_product 
+	where pr_uid_product_uuid = (event->'data'->>'identity')
+	on conflict do nothing;
+$$ language sql;
+
+select dbo.handle_create_product($${
+	"aggregateId": "",
+	"eventType": "",
+	"eventId": "",
+	"nextEventId": "",
+	"lastEventId": "",
+	"creationDate": "2018-12-11",
+	"data": {
+		"identity": "02628dd0-78f8-4036-b051-820f4ff99e87",
+		"name": "product",
+		"description": "this is another description",
+		"retailPrice": "1234"
+	}
+}$$);
+
+select dbo.handle_change_product($${
+	"aggregateId": "",
+	"eventType": "",
+	"eventId": "",
+	"nextEventId": "",
+	"lastEventId": "",
+	"creationDate": "2018-12-21",
+	"data": {
+		"identity": "02628dd0-78f8-4036-b051-820f4ff99e88",
+		"name": "product",
+		"description": "another description 12345",
+		"retailPrice": "1"
+	}
+}$$);
+
+select * from dbo.lpr_product;
+select pr_id from dbo.lpr_product where pr_uid_product_uuid = '02628dd0-78f8-4036-b051-820f4ff99e88'
+
+insert into dbo.lpr_product
+	(
+		pr_id,
+		pr_nam_product_name,
+		pr_nam_changedAt,
+		pr_dsc_product_description,
+		pr_dsc_changedAt,
+		pr_rep_product_retailPrice,
+		pr_rep_changedAt
+	)
+select 
+	pr_id,
+	'product name new 1234',
+	'2018-12-15',
+	'some new description 1234',
+	'2018-12-15',
+	2,
+	'2018-12-15'
+from dbo.lpr_product 
+where pr_uid_product_uuid = '02628dd0-78f8-4036-b051-820f4ff99e88'
+on conflict do nothing;
+
+select 
+	*
+from dbo.dpr_product('2000-10-10', '2019-01-01')
+where pr_id = 3
+order by pr_dsc_changedat
+
+select 
+	inspectedtimepoint,
+--	pr_uid_product_uuid,
+	pr_nam_product_name,
+	pr_dsc_product_description,
+	pr_rep_product_retailPrice
+from dbo.dpr_product('2000-10-10', '2019-01-01')
+where pr_id = 3
+group by
+	inspectedtimepoint,
+--	pr_uid_product_uuid,
+	pr_nam_product_name,
+	pr_dsc_product_description,
+	pr_rep_product_retailPrice
+order by inspectedtimepoint
 ```
