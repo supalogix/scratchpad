@@ -7,16 +7,15 @@ create table if not exists public.account (
 	email varchar(36) not null
 );
 
+drop table if exists id_for_name;
 
-drop table if exists account_ids;
-
-create temporary table if not exists account_ids
+create temporary table if not exists id_for_name
 (
 	var_name varchar(36),
 	id uuid
 );
 
-insert into account_ids values
+insert into id_for_name values
 (
 	'account1',
 	uuid_generate_v4()
@@ -32,7 +31,7 @@ select
 	id,
 	'john.doe',
 	'john.doe@gmail'
-from account_ids
+from id_for_name
 where var_name = 'account1';
 
 insert into public.account
@@ -40,11 +39,10 @@ select
 	id,
 	'jane.doe',
 	'jane.doe@gmail'
-from account_ids
+from id_for_name
 where var_name = 'account2';
 
 select * from public.account;
-
 
 with account_payload as (
 	select *
@@ -52,4 +50,5 @@ with account_payload as (
 )
 select jsonb_pretty(array_to_json(array_agg(to_jsonb(account_payload)))::jsonb) 
 from account_payload;
+
 ```
