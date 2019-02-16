@@ -1,3 +1,4 @@
+```sql
 drop table if exists public.account;
 
 create table if not exists public.account (
@@ -51,3 +52,4 @@ with account_payload as (
 )
 select jsonb_pretty(array_to_json(array_agg(to_jsonb(account_payload)))::jsonb) 
 from account_payload;
+```
