@@ -1,0 +1,53 @@
+FROM clearlane-java8 as builder
+
+WORKDIR /tmp/servicesclient
+
+COPY ./servicesclient/pom.xml /tmp/servicesclient
+COPY ./m2repository/ /var/m2repository 
+
+RUN mvn dependency:go-offline \
+    -DproxySet=true \
+    -DproxyHost=10.7.38.69 \
+    -DproxyPort=53128 \
+    -Dmaven.wagon.http.ssl.insecure=true \
+    -Dmaven.wagon.http.ssl.allowall=true \
+    -Dmaven.repo.local=/var/m2repository \
+    package -B
+
+COPY ./servicesclient/src/ /tmp/servicesclient/src
+
+RUN mvn install  \
+    --offline \
+    -DproxySet=true \
+    -DproxyHost=10.7.38.69 \
+    -DproxyPort=53128 \
+    -Dmaven.wagon.http.ssl.insecure=true \
+    -Dmaven.wagon.http.ssl.allowall=true \
+    -Dmaven.repo.local=/var/m2repository 
+
+WORKDIR /build/consumer
+
+COPY ./poms/consumer/pom.xml /build/consumer
+
+RUN mvn de.qaware.maven:go-offline-maven-plugin:resolve-dependencies \
+    -DproxySet=true \
+    -DproxyHost=10.7.38.69 \
+    -DproxyPort=53128 \
+    -Dmaven.wagon.http.ssl.insecure=true \
+    -Dmaven.wagon.http.ssl.allowall=true \
+    -Dmaven.repo.local=/var/m2repository 
+
+COPY ./consumer/src/ /build/consumer/src/
+
+RUN mvn install  \
+    --offline \
+    -DproxySet=true \
+    -DproxyHost=10.7.38.69 \
+    -DproxyPort=53128 \
+    -Dmaven.wagon.http.ssl.insecure=true \
+    -Dmaven.wagon.http.ssl.allowall=true \
+    -Dmaven.repo.local=/var/m2repository  \
+    -DskipTests
+
+FROM tomcat
+COPY --from=builder /build/consumer/target/consumer.war /usr/local/tomcat/webapps/consumer.war
