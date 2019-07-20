@@ -1,0 +1,15 @@
+  consumer.localhost:
+    build:
+      context: .
+      dockerfile: ./dockerfiles/consumer.Dockerfile
+#    networks:
+#      - traefik_webgateway
+#      - internal
+    ports:
+      - 8080:80
+    labels:
+      - traefik.backend=consumer
+      - traefik.frontend.rule=Host:consumer.localhost
+      - traefik.docker.network=traefik_webgateway
+      - traefik.port=8080
+    env_file: variables.en
