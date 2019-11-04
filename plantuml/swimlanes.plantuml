@@ -1,0 +1,32 @@
+@startuml
+
+title something
+
+|#dee4e8|p1|
+|#c4c9cd|p2|
+|#daf0fe|Backend|
+
+|Backend|
+start
+    :something;
+    if (open) then (yes)
+        :generate open data;
+        split
+            #3f3:Mail to p1\nMAIL ID: **3010**|
+            |p1|
+            :Receive Mail **3010**;
+            detach
+        split again
+            |Backend|
+            #3f3:Mail to p2\nMAIL ID: **3006**|
+            |p2|
+            :Receive Mail **3006**;
+            detach
+        end split
+    endif
+    |Backend|
+    #HotPink:something else>
+
+stop
+
+@enduml
