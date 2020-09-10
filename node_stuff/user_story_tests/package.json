@@ -1,0 +1,25 @@
+{
+  "name": "user_story_tests",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "chai": "^4.2.0",
+    "classnames": "^2.2.6",
+    "mocha": "^8.1.1",
+    "redux": "^4.0.5",
+    "reselect": "^4.0.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.10.5",
+    "@babel/core": "^7.11.1",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/register": "^7.10.5",
+    "babel-polyfill": "^6.26.0",
+    "nodemon": "^2.0.4"
+  },
+  "scripts": {
+    "test": "mocha --require @babel/register index.spec.js",
+    "test:watch": "nodemon --watch index.spec.js --exec npm test"
+  }
+}
