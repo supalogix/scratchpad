@@ -48,10 +48,10 @@ nodes = add_nodes(nodes, [
 	r1_e,
 ]);
 
-addChild(r1_a, r1_b);
-addChild(r1_b, r1_c);
-addChild(r1_c, r1_d);
-addChild(r1_d, r1_e);
+add_child(r1_a, r1_b);
+add_child(r1_b, r1_c);
+add_child(r1_c, r1_d);
+add_child(r1_d, r1_e);
 
 const r2_a = {
 	id: "r2_a",
@@ -93,10 +93,10 @@ const r2_e = {
 	children: []
 };
 
-addChild(r2_a, r2_b);
-addChild(r2_b, r2_c);
-addChild(r2_c, r2_d);
-addChild(r2_d, r2_e);
+add_child(r2_a, r2_b);
+add_child(r2_b, r2_c);
+add_child(r2_c, r2_d);
+add_child(r2_d, r2_e);
 
 
 const r3_a = {
@@ -132,8 +132,8 @@ const r3_d = {
 	children: []
 }
 
-addChild(r3_a, r3_b);
-addChild(r3_c, r3_d);
+add_child(r3_a, r3_b);
+add_child(r3_c, r3_d);
 
 const r4_a = {
 	id: "r4_a",
@@ -168,8 +168,8 @@ const r4_d = {
 	children: []
 }
 
-addChild(r4_a, r4_b);
-addChild(r4_c, r4_d);
+add_child(r4_a, r4_b);
+add_child(r4_c, r4_d);
 
 const r5_a = {
 	id: "r5_a",
@@ -220,11 +220,11 @@ const r5_f = {
 };
 
 
-addChild(r5_a, r5_b);
-addChild(r5_b, r5_c);
-addChild(r5_c, r5_d);
-addChild(r5_d, r5_e);
-addChild(r5_e, r5_f);
+add_child(r5_a, r5_b);
+add_child(r5_b, r5_c);
+add_child(r5_c, r5_d);
+add_child(r5_d, r5_e);
+add_child(r5_e, r5_f);
 
 const r6_a = {
 	id: "r6_a",
@@ -274,10 +274,10 @@ nodes = add_nodes(nodes, [
 	r6_e,
 ]);
 
-addChild(r6_a, r6_b);
-addChild(r6_b, r6_c);
-addChild(r6_c, r6_d);
-addChild(r6_d, r6_e);
+add_child(r6_a, r6_b);
+add_child(r6_b, r6_c);
+add_child(r6_c, r6_d);
+add_child(r6_d, r6_e);
 
 const r7_a = {
 	id: "r7_a",
@@ -335,11 +335,11 @@ const r7_g = {
 	children: []
 };
 
-addChild(r7_a, r7_b);
-addChild(r7_b, r7_c);
-addChild(r7_c, r7_d);
-addChild(r7_d, r7_e);
-addChild(r7_e, r7_f);
+add_child(r7_a, r7_b);
+add_child(r7_b, r7_c);
+add_child(r7_c, r7_d);
+add_child(r7_d, r7_e);
+add_child(r7_e, r7_f);
 
 const r8_a = {
 	id: "r8_a",
@@ -373,9 +373,9 @@ const r8_d = {
 	children: []
 };
 
-addChild(r8_a, r8_b);
-addChild(r8_b, r8_c);
-addChild(r8_c, r8_d);
+add_child(r8_a, r8_b);
+add_child(r8_b, r8_c);
+add_child(r8_c, r8_d);
 
 const D = combine("D", r8_a, [
 	r4_a,
@@ -462,7 +462,7 @@ const	root = [
 	r6_a
 ];
 
-addChild(C, r8_a);
+add_child(C, r8_a);
 
 function add_nodes(nodes, node)
 {
@@ -490,7 +490,7 @@ function combine(new_id, parent_node, nodes)
 
 	nodes.forEach(node => {
 		node.children.forEach(child => {
-			addChild(new_node, child);
+			add_child(new_node, child);
 		});
 	});
 
@@ -500,7 +500,7 @@ function combine(new_id, parent_node, nodes)
 	return new_node;
 }
 
-function addChild(parent_node, child_node)
+function add_child(parent_node, child_node)
 {
 	child_node.parent_node = parent_node;
 	parent_node.children = parent_node.children.concat(child_node)
