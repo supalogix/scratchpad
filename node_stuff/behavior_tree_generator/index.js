@@ -1,291 +1,414 @@
+let nodes = []
+
 const r1_a = {
 	id: "r1_a",
-	group: "R1",
-	title: "Oven [Idle]"
+	_id: "1a",
+	title: "Oven [Idle]",
+	parent_node: null,
+	children: []
 };
 
 const r1_b = {
 	id: "r1_b",
-	group: "R1",
-	title: "User ???PushButton???"
+	_id: "1b",
+	title: "User ???PushButton???",
+	parent_node: null,
+	children: []
 };
 
 const r1_c = {
 	id: "r1_c",
-	group: "R1",
-	title: "Button [Pushed]"
+	_id: "1c",
+	title: "Button [Pushed]",
+	parent_node: null,
+	children: []
 };
 
 const r1_d = {
 	id: "r1_d",
-	group: "R1",
-	title: "Powertube [Energized]"
+	_id: "1d",
+	title: "Powertube [Energized]",
+	parent_node: null,
+	children: []
 };
 
 const r1_e = {
 	id: "r1_e",
-	group: "R1",
-	title: "Oven [Cooking]"
+	_id: "1e",
+	title: "Oven [Cooking]",
+	parent_node: null,
+	children: []
 };
 
-r1_a.children = [r1_b];
-r1_b.children = [r1_c];
-r1_c.children = [r1_d];
-r1_d.children = [r1_e];
-r1_e.children = [];
+nodes = add_nodes(nodes, [
+	r1_a,
+	r1_b,
+	r1_c,
+	r1_d,
+	r1_e,
+]);
+
+addChild(r1_a, r1_b);
+addChild(r1_b, r1_c);
+addChild(r1_c, r1_d);
+addChild(r1_d, r1_e);
 
 const r2_a = {
 	id: "r2_a",
-	group: "R2",
-	title: "Oven [Cooking]"
+	_id: "2a",
+	title: String.raw`Oven [Cooking]`,
+	parent_node: null,
+	children: []
 };
 
 const r2_b = {
 	id: "r2_b",
-	group: "R2",
-	title: "User ???PushButton???"
+	_id: "2b",
+	title: "User ???PushButton???",
+	parent_node: null,
+	children: []
 };
 
 const r2_c = {
 	id: "r2_c",
-	group: "R2",
-	title: "Button [Pushed]"
+	_id: "2c",
+	title: "Button [Pushed]",
+	parent_node: null,
+	children: []
 };
 
 const r2_d = {
 	id: "r2_d",
-	group: "R2",
-	title: "Oven [ExtraMin]"
+	_id: "2d",
+	title: "Oven [ExtraMin]",
+	parent_node: null,
+	children: []
 };
 
 const r2_e = {
 	id: "r2_e",
-	group: "R2",
-	title: "Oven [Cooking]"
+	_id: "2e",
+	title: "Oven [Cooking]",
+	parent_node: null,
+	children: []
 };
 
-r2_a.children = [r2_b];
-r2_b.children = [r2_c];
-r2_c.children = [r2_d];
-r2_d.children = [r2_e];
-r2_e.children = [];
+addChild(r2_a, r2_b);
+addChild(r2_b, r2_c);
+addChild(r2_c, r2_d);
+addChild(r2_d, r2_e);
+
 
 const r3_a = {
 	id: "r3_a",
-	group: "R3",
-	title: "Door [Closed]"
+	_id: "3a",
+	title: "Door [Closed]",
+	parent_node: null,
+	children: []
 }
 
 const r3_b = {
 	id: "r3_b",
-	group: "R3",
-	title: "Button [Enabled]"
+	_id: "3b",
+	title: "Button [Enabled]",
+	parent_node: null,
+	children: []
 }
 
 const r3_c = {
 	id: "r3_c",
-	group: "R3",
-	title: "Door [Open]"
+	_id: "3c",
+	title: "Door [Open]",
+	parent_node: null,
+	children: []
 }
 
 
 const r3_d = {
 	id: "r3_d",
-	group: "R3",
-	title: "Button [Disabled]"
+	_id: "3d",
+	title: "Button [Disabled]",
+	parent_node: null,
+	children: []
 }
 
-
-r3_a.children = [r3_b];
-r3_b.children = [];
-r3_c.children = [r3_d];
-r3_d.children = [];
+addChild(r3_a, r3_b);
+addChild(r3_c, r3_d);
 
 const r4_a = {
 	id: "r4_a",
-	group: "R4",
-	title: "Door [Open]"
+	_id: "4a",
+	title: "Door [Open]",
+	parent_node: null,
+	children: []
 }
 
 const r4_b = {
 	id: "r4_b",
-	group: "R4",
-	title: "Light [On]"
+	_id: "4b",
+	title: "Light [On]",
+	parent_node: null,
+	children: []
 }
 
 const r4_c = {
 	id: "r4_c",
-	group: "R4",
-	title: "Oven [Cooking]"
+	_id: "4c",
+	title: "Oven [Cooking]",
+	parent_node: null,
+	children: []
 }
 
 
 const r4_d = {
 	id: "r4_d",
-	group: "R4",
-	title: "Light [On]"
+	_id: "4d",
+	title: "Light [On]",
+	parent_node: null,
+	children: []
 }
 
-
-r4_a.children = [r4_b];
-r4_b.children = [];
-r4_c.children = [r4_d];
-r4_d.children = [];
+addChild(r4_a, r4_b);
+addChild(r4_c, r4_d);
 
 const r5_a = {
 	id: "r5_a",
-	group: "R5",
-	title: "Oven [Cooking]"
+	_id: "5a",
+	title: "Oven [Cooking]",
+	parent_node: null,
+	children: []
 };
 
 const r5_b = {
 	id: "r5_b",
-	group: "R5",
+	_id: "5b",
 	title: "User ???DoorOpen???",
+	parent_node: null,
+	children: []
 };
 
 const r5_c = {
 	id: "r5_c",
-	group: "R5",
+	_id: "5c",
 	title: "Door [Open]",
+	parent_node: null,
+	children: []
 };
 
 const r5_d = {
 	id: "r5_d",
-	group: "R5",
+	_id: "5d",
 	title: "Powertube [Off]",
+	parent_node: null,
+	children: []
 };
 
 const r5_e = {
 	id: "r5_e",
-	group: "R5",
+	_id: "5e",
 	title: "Oven [CookStop]",
+	parent_node: null,
+	children: []
 };
 
 const r5_f = {
 	id: "r5_f",
-	group: "R5",
+	_id: "5f",
 	title: "Oven [Open]",
+	parent_node: null,
+	children: []
 };
 
-r5_a.children = [r5_b];
-r5_b.children = [r5_c];
-r5_c.children = [r5_d];
-r5_d.children = [r5_e];
-r5_e.children = [r5_f];
-r5_e.children = [];
+
+addChild(r5_a, r5_b);
+addChild(r5_b, r5_c);
+addChild(r5_c, r5_d);
+addChild(r5_d, r5_e);
+addChild(r5_e, r5_f);
 
 const r6_a = {
 	id: "r6_a",
-	group: "R6",
-	title: "Oven [Open]"
+	_id: "6a",
+	title: `Oven [Open]`,
+	parent_node: null,
+	children: []
 };
 
 const r6_b = {
 	id: "r6_b",
-	group: "R6",
+	_id: "6b",
 	title: "User ???DoorClosed???",
+	parent_node: null,
+	children: []
 };
 
 const r6_c = {
 	id: "r6_c",
-	group: "R6",
+	_id: "6c",
 	title: "Door [Closed]",
+	parent_node: null,
+	children: []
 };
 
 const r6_d = {
 	id: "r6_d",
-	group: "R6",
+	_id: "6d",
 	title: "Light [Off]",
+	parent_node: null,
+	children: []
 };
 
 const r6_e = {
 	id: "r6_e",
-	group: "R6",
+	_id: "6e",
 	title: "Oven [Idle]",
+	parent_node: null,
+	children: []
 };
 
-r6_a.children = [r6_b];
-r6_b.children = [r6_c];
-r6_c.children = [r6_d];
-r6_d.children = [r6_e];
-r6_e.children = [];
+nodes = add_nodes(nodes, [
+	r6_a,
+	r6_b,
+	r6_c,
+	r6_d,
+	r6_e,
+]);
+
+addChild(r6_a, r6_b);
+addChild(r6_b, r6_c);
+addChild(r6_c, r6_d);
+addChild(r6_d, r6_e);
 
 const r7_a = {
 	id: "r7_a",
-	group: "R7",
-	title: "Oven [Cooking]"
+	_id: "7a",
+	title: "Oven [Cooking]",
+	parent_node: null,
+	children: []
 };
 
 const r7_b = {
 	id: "r7_b",
-	group: "R7",
+	_id: "7b",
 	title: "Oven ???TimeOut???",
+	parent_node: null,
+	children: []
 };
 
 const r7_c = {
 	id: "r7_c",
-	group: "R7",
+	_id: "7c",
 	title: "Light [Off]",
+	parent_node: null,
+	children: []
 };
 
 const r7_d = {
 	id: "r7_d",
-	group: "R7",
+	_id: "7d",
 	title: "Powertube [Off]",
+	parent_node: null,
+	children: []
 };
 
 const r7_e = {
 	id: "r7_e",
-	group: "R7",
+	_id: "7e",
 	title: "Beeper [Sounded]",
+	parent_node: null,
+	children: []
 };
 
 const r7_f = {
 	id: "r7_f",
-	group: "R7",
+	_id: "7f",
 	title: "Oven [CookFinish]",
+	parent_node: null,
+	children: []
 };
 
 const r7_g = {
 	id: "r7_g",
-	group: "R7",
+	_id: "7g",
 	title: "Oven ^[Idle]",
+	parent_node: null,
+	children: []
 };
 
-r7_a.children = [r7_b];
-r7_b.children = [r7_c];
-r7_c.children = [r7_d];
-r7_d.children = [r7_e];
-r7_e.children = [r7_f];
-r7_f.children = [];
+addChild(r7_a, r7_b);
+addChild(r7_b, r7_c);
+addChild(r7_c, r7_d);
+addChild(r7_d, r7_e);
+addChild(r7_e, r7_f);
 
 const r8_a = {
 	id: "r8_a",
-	title: "User ???DoorOpen???"
+	_id: "8a",
+	title: "User ???DoorOpen???",
+	parent_node: null,
+	children: []
 };
 
 const r8_b = {
 	id: "r8_b",
+	_id: "8b",
 	title: "Door [Open]",
+	parent_node: null,
+	children: []
 };
 
 const r8_c = {
 	id: "r8_c",
+	_id: "8c",
 	title: "Button [Disabled]",
+	parent_node: null,
+	children: []
 };
 
 const r8_d = {
 	id: "r8_d",
+	_id: "8d",
 	title: "Oven ^[Open]",
+	parent_node: null,
+	children: []
 };
 
-r8_a.children = [r8_b];
-r8_b.children = [r8_c];
-r8_c.children = [r8_d];
-r8_d.children = [];
+addChild(r8_a, r8_b);
+addChild(r8_b, r8_c);
+addChild(r8_c, r8_d);
 
-const nodes = [
+const D = combine("D", r8_a, [
+	r4_a,
+	r8_b
+]);
+
+
+const B = combine("B", r1_d, [
+	r1_e, 
+	r2_a, 
+	r4_c, 
+	r5_a, 
+	r7_a
+]);
+
+
+const E = combine("E", r5_b, [
+	r3_c,
+	r5_c
+]);
+
+
+const A = combine("A", r6_b, [
+	r3_a,
+	r6_c
+]);
+
+const C = combine("C", r6_d, [
+	r1_a,
+	r6_e
+]);
+
+nodes = nodes.concat([
 	r1_a,
 	r1_b,
 	r1_c,
@@ -315,12 +438,6 @@ const nodes = [
 	r5_e,
 	r5_f,
 
-	r6_a,
-	r6_b,
-	r6_c,
-	r6_d,
-	r6_e,
-
 	r7_a,
 	r7_b,
 	r7_c,
@@ -332,38 +449,61 @@ const nodes = [
 	r8_b,
 	r8_c,
 	r8_d,
+
+	A,
+	B,
+	C,
+	D,
+	E,
+]);
+
+
+const	root = [
+	r6_a
 ];
 
-const r6 = {
-	node: {
-		[r6_a.id]: r6_a,
-		[r6_b.id]: r6_b,
-		[r6_c.id]: r6_c,
-		[r6_d.id]: r6_d,
-		[r6_e.id]: r6_e,
-	},
-	root: [
-		r6_a
-	]
-};
+addChild(C, r8_a);
 
-append(r6_b, r3_a);
-append(r6_d, r1_a);
-append(r1_d, r2_a);
-append(r1_d, r5_a);
-append(r5_b, r3_c);
-append(r1_d, r7_a);
-append(r1_a, r8_a);
-append(r8_a, r4_a);
-
-append(r1_e, r4_c);
-append(r2_a, r4_c);
-append(r5_a, r4_c);
-append(r7_a, r4_c);
-
-function append(lhs, rhs)
+function add_nodes(nodes, node)
 {
-	lhs.children = lhs.children.concat(rhs)
+	return nodes.concat(node);
+}
+
+function combine(new_id, parent_node, nodes)
+{
+	let _id = nodes.reduce((acc,node) => {
+		return String.raw`${acc}${node._id}\l`
+	}, "");
+
+	const title = nodes.reduce((acc,node) => {
+		return node.title
+	}, "");
+
+	_id = String.raw`${_id}\l${new_id}`
+
+	const new_node = {
+		id: new_id,
+		_id,
+		title,
+		children: []
+	}
+
+	nodes.forEach(node => {
+		node.children.forEach(child => {
+			addChild(new_node, child);
+		});
+	});
+
+	parent_node.children = [ new_node ];
+	new_node.parent_node = parent_node;
+
+	return new_node;
+}
+
+function addChild(parent_node, child_node)
+{
+	child_node.parent_node = parent_node;
+	parent_node.children = parent_node.children.concat(child_node)
 }
 
 function get_names(nodes)
@@ -371,11 +511,11 @@ function get_names(nodes)
 	nodes.forEach(node => {
 		const {
 			id, 
+			_id,
 			title,
-			group
 		}  = node
 
-		const label = String.raw`!$${id} = '"${title}\l${id}"'`
+		const label = String.raw`!$${id} = '"${title}\l\l${_id}"'`
 
 		console.log(label);
 
@@ -410,5 +550,5 @@ function get_relationships(root, parent_node)
 }
 
 get_names(nodes);
-get_relationships(r6.root, null);
+get_relationships(root, null);
 
