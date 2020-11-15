@@ -47,6 +47,19 @@ create table if not exists customer__username
   username varchar(255)
 );
 
+create view lview__customer__username as 
+select 
+	customer_id,
+    CU.customer_trx_id,
+    version,
+    username
+from customer CU
+	INNER JOIN customer_trx CT
+    	ON CU.customer_trx_id = CT.customer_trx_id
+    LEFT JOIN customer__username CU_USE
+    	ON CT.customer_trx_id = CU_USE.customer_trx_id
+WHERE username is not null;
+
 create table if not exists customer__email
 (
   customer_trx_id int,
@@ -62,6 +75,10 @@ insert into customer values ( 100, 1, 1 );
 insert into customer_trx values (2, 2);
 insert into customer__email values (2, 'john001@gmail.com');
 insert into customer values (100, 2, 2);
+
+insert into customer_trx values (3, 1);
+insert into customer__username values (3, 'jane.doe');
+insert into customer values ( 100, 3, 3 );
 
 create or replace view customer_history_view as
 select
@@ -84,3 +101,38 @@ from customer CU
     	ON CT.customer_trx_id = CU_USE.customer_trx_id
     LEFT JOIN customer__email CU_EMA
     	ON CT.customer_trx_id = CU_EMA.customer_trx_id;
+
+
+
+with latest_username as (
+	select *
+ 	from customer CU
+  		INNER JOIN customer_trx CT
+  			ON CU.customer_trx_id = CT.customer_trx_id
+  		INNER JOIN customer__username CU_USE
+  			ON CT.customer_trx_id = CU_USE.customer_trx_id
+ 	order by CU.version desc
+  	limit 1
+),
+latest_email as (
+  	select *
+ 	from customer CU
+  		INNER JOIN customer_trx CT
+  			ON CU.customer_trx_id = CT.customer_trx_id
+  		INNER JOIN customer__email CU_EMA
+  			ON CT.customer_trx_id = CU_EMA.customer_trx_id
+ 	order by CU.version desc
+  	limit 1
+)
+select 
+	username,
+    email
+from latest_username USE
+	FULL JOIN latest_email EMA
+    	ON USE.customer_id = EMA.customer_id;
+
+select * 
+from customer_history_view
+where customer_id = 100;
+
+select * from lview__customer__username;
