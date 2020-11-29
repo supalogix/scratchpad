@@ -1,3 +1,17 @@
+const Mutator = require("./modules/mutator") ;
+const Reporter = require("./modules/reporter");
+
+const {
+	add_child,
+	add_nodes,
+	combine
+} = Mutator;
+
+const {
+	get_names,
+	get_relationships
+} = Reporter;
+
 let nodes = []
 
 const r1_a = {
@@ -463,91 +477,6 @@ const	root = [
 ];
 
 add_child(C, r8_a);
-
-function add_nodes(nodes, node)
-{
-	return nodes.concat(node);
-}
-
-function combine(new_id, parent_node, nodes)
-{
-	let _id = nodes.reduce((acc,node) => {
-		return String.raw`${acc}${node._id}\l`
-	}, "");
-
-	const title = nodes.reduce((acc,node) => {
-		return node.title
-	}, "");
-
-	_id = String.raw`${_id}\l${new_id}`
-
-	const new_node = {
-		id: new_id,
-		_id,
-		title,
-		children: []
-	}
-
-	nodes.forEach(node => {
-		node.children.forEach(child => {
-			add_child(new_node, child);
-		});
-	});
-
-	parent_node.children = [ new_node ];
-	new_node.parent_node = parent_node;
-
-	return new_node;
-}
-
-function add_child(parent_node, child_node)
-{
-	child_node.parent_node = parent_node;
-	parent_node.children = parent_node.children.concat(child_node)
-}
-
-function get_names(nodes)
-{
-	nodes.forEach(node => {
-		const {
-			id, 
-			_id,
-			title,
-		}  = node
-
-		const label = String.raw`!$${id} = '"${title}\l\l${_id}"'`
-
-		console.log(label);
-
-	});
-}
-
-function get_relationships(root, parent_node)
-{
-	const isTerminalNode = root.length === 0;
-
-	if(isTerminalNode)
-		return
-
-	const isRootNode = parent_node === null;
-
-	if(isRootNode)
-	{
-		root.forEach(node => {
-			const relation = `(*) --> $${node.id}`
-			console.log(relation);
-			get_relationships(node.children, node);
-		});
-	}
-	else
-	{
-		root.forEach(node => {
-			const relation = `$${parent_node.id} --> $${node.id}`
-			console.log(relation);
-			get_relationships(node.children, node);
-		});
-	}
-}
 
 get_names(nodes);
 get_relationships(root, null);
