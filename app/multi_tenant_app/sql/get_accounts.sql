@@ -1,0 +1,2 @@
+-- getAccounts
+select * from account;
