@@ -45,6 +45,20 @@ const generateAllPaths = (node, path = "") => {
 	return log.flat()
 }
 
+const createHistory = (items) => {
+	const history = []
+
+	for(var i = 0; i < items.length; i+=2)
+	{
+		history.push({
+			path: items[i],
+			actions: items[i+1]
+		})
+	}
+
+	return history
+}
+
 const getAllPaths = (node, path = "", actions = []) => {
 	let log = []
 
@@ -65,17 +79,7 @@ const getAllPaths = (node, path = "", actions = []) => {
 
 const allPaths = (node) => {
 	const items = getAllPaths(node)
-	const history = []
-
-	for(var i = 0; i < items.length; i+=2)
-	{
-		history.push({
-			path: items[i],
-			actions: items[i+1]
-		})
-	}
-
-	return history
+	return createHistory(items)
 }
 
 const getUniquePaths = (node, path = "", actions = []) => {
@@ -99,17 +103,7 @@ const getUniquePaths = (node, path = "", actions = []) => {
 
 const uniquePaths = (node) => {
 	const items = getUniquePaths(node)
-	const history = []
-
-	for(var i = 0; i < items.length; i+=2)
-	{
-		history.push({
-			path: items[i],
-			actions: items[i+1]
-		})
-	}
-
-	return history
+	return createHistory(items)
 }
 
 const A = createNode("A", ["1"]);
