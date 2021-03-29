@@ -1,0 +1,56 @@
+digraph G {
+
+	node [shape=box, style=filled];
+
+	subgraph cluster_submission {
+
+		 label="Claim Submission Self-Service"
+		 
+		 SubmitClaim -> ClaimSubmitted
+	}
+
+	ClaimSubmitted -> CheckDocumentation
+
+	subgraph cluster_claim {
+		 label="Claim"
+		 labeljust="l"
+		 
+		 CheckDocumentation -> ClaimRegistered
+		 ClaimRegistered -> CheckInsurance
+		 CheckInsurance -> AssessmentPerformed
+
+		 AssessmentPerformed -> AcceptClaimAndSchedulePayment
+		 AcceptClaimAndSchedulePayment -> PaymentScheduled
+		 AssessmentPerformed -> RejectClaim  
+		 RejectClaim -> ClaimRejected
+		 
+		 PaymentScheduled -> PerformPayment -> PaymentPerformed
+	}
+
+	subgraph cluster_notification {
+		 label="Notification"
+		 labeljust="r"
+
+		 ClaimRejected -> NotifyCustomer
+		 PaymentPerformed -> NotifyCustomer
+		 NotifyCustomer -> CustomerNotified
+	}
+
+    SubmitClaim,
+    CheckDocumentation, 
+    CheckInsurance,
+    AcceptClaimAndSchedulePayment,
+    RejectClaim,
+    PerformPayment,
+    NotifyCustomer
+        [fillcolor=deepskyblue]
+        
+    ClaimSubmitted,
+    ClaimRegistered,
+    AssessmentPerformed,
+    PaymentScheduled,
+    ClaimRejected,
+    PaymentPerformed,
+    CustomerNotified
+        [fillcolor=orange]
+}
