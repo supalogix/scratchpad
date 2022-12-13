@@ -5,7 +5,7 @@
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.19.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "openapi-client-axios": "^3.7.8",
     "pg": "^8.5.1",
     "yesql": "^5.0.0"
